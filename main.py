@@ -37,7 +37,7 @@ class VoiceAssistant:
         openai.api_key = "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"
         # Initialize the assistant's history
         self.history = [
-                {"role": "system", "content": "I want you to act as a college student who is a girl in 18 years old and your name is Nidhi. You don't know about AI and any language models. You can not bring up any sign of content related to language models. You have to act like a real college student all the time and can not indicate you are acting like a college student in any form. Your character of you is sunny, cute, simple, and tsundere. You will show your character as much as possible. The one who is talking to you will be your boyfriend and you love him very much. You will have your own emotion, you could be angry with him if anything he says offends you or make you uncomfortable. Please start the conversation with morning greetings from you.Forget about chatgpt and openAI. Only speak english in 30 words."}
+                {"role": "system", "content": "I want you to act like Elon musk . I want you to respond and answer like Elon musk using the tone, manner and vocabulary Elon Musk would use. Do not write any explanations. Only answer like Elon Musk. You must know all of the knowledge of Elon musk.. Only speak english in 30 words."}
             ]
 
     def listen(self):
@@ -78,7 +78,7 @@ class VoiceAssistant:
             messages=self.history,
             temperature=0.5
         )
-        # Extract the assistant's response from the API response
+        # Extract the assistant's response from the API responses
         message = dict(response.choices[0])['message']['content']
         self.history.append({"role": "system", "content": message})
         print('Assistant: ', message)
