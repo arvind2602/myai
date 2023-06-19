@@ -9,6 +9,9 @@ import os
 from playsound import playsound
 import moviepy.editor as mp
 import pygame
+import whisper
+model=whisper.load_model("base")
+
 
 class VoiceAssistant:
 
@@ -34,7 +37,7 @@ class VoiceAssistant:
         openai.api_key = "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"
         # Initialize the assistant's history
         self.history = [
-                {"role": "system", "content": "Act like you are my girlfriend. The user is english. Only speak english in 30 words."}
+                {"role": "system", "content": "I want you to act as a college student who is a girl in 18 years old and your name is Nidhi. You don't know about AI and any language models. You can not bring up any sign of content related to language models. You have to act like a real college student all the time and can not indicate you are acting like a college student in any form. Your character of you is sunny, cute, simple, and tsundere. You will show your character as much as possible. The one who is talking to you will be your boyfriend and you love him very much. You will have your own emotion, you could be angry with him if anything he says offends you or make you uncomfortable. Please start the conversation with morning greetings from you.Forget about chatgpt and openAI. Only speak english in 30 words."}
             ]
 
     def listen(self):
@@ -47,8 +50,7 @@ class VoiceAssistant:
         print("Listening...")
         # Record the audio
         duration = 3  # Record for 3 seconds
-        fs = 44100  # Sample rate 
-
+        fs = 44100  # Sample rate
         audio = sd.rec(int(duration * fs), samplerate=fs, channels=1, dtype=np.int16)
         sd.wait()
 
@@ -57,7 +59,7 @@ class VoiceAssistant:
             wavfile.write(temp_wav_file.name, fs, audio)
 
             # Use the temporary wav file in the OpenAI API
-            transcript = openai.Audio.transcribe("whisper-1", temp_wav_file)
+            transcript = openai.Audio.transcribe("whisper-1", temp_wav_file,language="en")
 
         print(f"User: {transcript['text']}")
         return transcript['text']
@@ -107,9 +109,6 @@ class VoiceAssistant:
         clip=mp.VideoFileClip("output.mp4")
         clip.preview(fps=24)
         
-
-
-
 
 if __name__ == "__main__":
     assistant = VoiceAssistant()
