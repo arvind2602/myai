@@ -6,27 +6,24 @@ import tempfile
 from playsound import playsound
 import moviepy.editor as mp
 import whisper
-model=whisper.load_model("base")
 from elevenlabs import set_api_key
-set_api_key("")
+set_api_key("cc48ada1f0ef78e5aa7c5133151f201b")
+model=whisper.load_model("base")
+
 
 class VoiceAssistant:
+
     def __init__(self):
      
         # Set your OpenAI API key
-        openai.api_key = ""
+        openai.api_key = "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"
         # Initialize the assistant's history
         self.history = [
-                {"role": "system", "content": "I want you to act like my bestfriend be realistic and ask questions. I want you to respond and answer like smart best friend using the tone, manner and vocabulary an sweet person would use. Do not write any explanations. You must know all of the knowledge of technology.Only speak Hindi in 30 words."}
+                {"role": "system", "content": "Act as my personal assistant.Only speak english in 30 words."}
             ]
 
     def listen(self):
 
-        """
-        Records audio from the user and transcribes it.
-        And then returns the text.
-
-        """
         print("Listening...")
         # Record the audio
         duration = 3  # Record for 3 seconds
@@ -47,10 +44,6 @@ class VoiceAssistant:
   
     def think(self, text):
 
-        """
-        Generates a response to the user's input.
-        """
-        # Add the user's input to the assistant's history
         self.history.append({"role": "user", "content": text})
         # Send the conversation to the GPT API
         response = openai.ChatCompletion.create(
@@ -66,35 +59,20 @@ class VoiceAssistant:
     
 
     def speak(self,xyz):
-        """"
-        Converts text to speech and plays it.
-        """
-        # Initialize the speech engine
-        # engine = pyttsx3.init()
 
-        # Convert text to speech
-        # engine.say(text)
-
-        # Block while processing all currently queued commands
-        # engine.runAndWait()
-        # mytext=text
-        # language="en"
-        # myobj=gTTS(text=mytext,lang=language,slow=False)
-        # myobj.save("welcome.mp3")
-        from elevenlabs import generate ,save
+        from elevenlabs import generate, play ,save
 
         audio = generate(
           text=xyz,
-          voice="Josh",
-          model="eleven_multilingual_v1"
+          voice="Bella",
+          model="eleven_monolingual_v1"
         )
         save(audio, "welcome.mp3")
 
 
-        video = mp.VideoFileClip("./ue.mp4")
+        video = mp.VideoFileClip("./anime3.mp4")
         audio = mp.AudioFileClip("welcome.mp3")
         audio_segment = audio.subclip(0, video.duration)
-        video_segment = audio.subclip(0, audio.duration)
         synced_video = video.set_audio(audio)
         synced_video.write_videofile("output.mp4")
         clip=mp.VideoFileClip("output.mp4")
