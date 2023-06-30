@@ -91,7 +91,7 @@ class VoiceAssistant:
         save(audio, "welcome.mp3")
 
 
-        video = mp.VideoFileClip("./ue.mp4")
+        video = mp.VideoFileClip("./video_templates/ue.mp4")
         audio = mp.AudioFileClip("welcome.mp3")
         audio_segment = audio.subclip(0, video.duration)
         video_segment = audio.subclip(0, audio.duration)
