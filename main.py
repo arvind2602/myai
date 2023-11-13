@@ -3,18 +3,21 @@ import sounddevice as sd
 import numpy as np
 from scipy.io import wavfile
 import tempfile
-from playsound import playsound
 import moviepy.editor as mp
 import whisper
 model=whisper.load_model("base")
 from elevenlabs import set_api_key
-set_api_key("")
+from dotenv import load_dotenv
+import os
+load_dotenv()
+
+set_api_key(os.getenv("ELEVEN_API_KEY"))
 
 class VoiceAssistant:
     def __init__(self):
      
         # Set your OpenAI API key
-        openai.api_key = ""
+        openai.api_key = os.getenv("OPENAI_API_KEY")
         # Initialize the assistant's history
         self.history = [
                 {"role": "system", "content": "I want you to act like my bestfriend be realistic and ask questions. I want you to respond and answer like smart best friend using the tone, manner and vocabulary an sweet person would use. Do not write any explanations. You must know all of the knowledge of technology.Only speak Hindi in 30 words."}
@@ -66,21 +69,8 @@ class VoiceAssistant:
     
 
     def speak(self,xyz):
-        """"
-        Converts text to speech and plays it.
-        """
-        # Initialize the speech engine
-        # engine = pyttsx3.init()
+        # Converts text to speech and plays it.
 
-        # Convert text to speech
-        # engine.say(text)
-
-        # Block while processing all currently queued commands
-        # engine.runAndWait()
-        # mytext=text
-        # language="en"
-        # myobj=gTTS(text=mytext,lang=language,slow=False)
-        # myobj.save("welcome.mp3")
         from elevenlabs import generate ,save
 
         audio = generate(
