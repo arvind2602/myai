@@ -50,9 +50,6 @@ class VoiceAssistant:
   
     def think(self, text):
 
-        """
-        Generates a response to the user's input.
-        """
         # Add the user's input to the assistant's history
         self.history.append({"role": "user", "content": text})
         # Send the conversation to the GPT API
@@ -72,7 +69,6 @@ class VoiceAssistant:
         # Converts text to speech and plays it.
 
         from elevenlabs import generate ,save
-
         audio = generate(
           text=xyz,
           voice="Josh",
@@ -83,13 +79,16 @@ class VoiceAssistant:
 
         video = mp.VideoFileClip("./video_templates/ue.mp4")
         audio = mp.AudioFileClip("welcome.mp3")
-        audio_segment = audio.subclip(0, video.duration)
-        video_segment = audio.subclip(0, audio.duration)
         synced_video = video.set_audio(audio)
+        synced_video = synced_video.set_duration(audio.duration)
+ 
+        if audio.duration > video.duration:
+            video = mp.concatenate_videoclips([video] * int(np.ceil(audio.duration / video.duration)))
+            synced_video = video.set_audio(audio)
+
         synced_video.write_videofile("output.mp4")
         clip=mp.VideoFileClip("output.mp4")
         clip.preview(fps=24)
-        
 
 if __name__ == "__main__":
     assistant = VoiceAssistant()
