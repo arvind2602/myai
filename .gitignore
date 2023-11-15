@@ -8,6 +8,10 @@
 .LSOverride
 output.mp4
 welcome.mp3
+cohere.py
+output.mp3
+cohere1.py
+
 
 # Icon must end with two \r
 Icon

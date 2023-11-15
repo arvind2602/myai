@@ -31,8 +31,8 @@ class VoiceAssistant:
 
         """
         print("Listening...")
-        # Record the audio
-        duration = 3  # Record for 3 seconds
+        # Record the audio until the user stops
+        duration = 3  
         fs = 44100  # Sample rate
         audio = sd.rec(int(duration * fs), samplerate=fs, channels=1, dtype=np.int16)
         sd.wait()
@@ -71,20 +71,21 @@ class VoiceAssistant:
         from elevenlabs import generate ,save
         audio = generate(
           text=xyz,
-          voice="Josh",
+          voice="Glinda",
           model="eleven_multilingual_v1"
         )
-        save(audio, "welcome.mp3")
+        save(audio, "output.mp3")
 
 
         video = mp.VideoFileClip("./video_templates/ue.mp4")
-        audio = mp.AudioFileClip("welcome.mp3")
+        audio = mp.AudioFileClip("output.mp3")
         synced_video = video.set_audio(audio)
         synced_video = synced_video.set_duration(audio.duration)
  
         if audio.duration > video.duration:
             video = mp.concatenate_videoclips([video] * int(np.ceil(audio.duration / video.duration)))
             synced_video = video.set_audio(audio)
+            synced_video = synced_video.set_duration(audio.duration)
 
         synced_video.write_videofile("output.mp4")
         clip=mp.VideoFileClip("output.mp4")
