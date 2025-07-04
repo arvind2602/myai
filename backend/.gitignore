@@ -3,3 +3,4 @@ venv/
 .env
 __pycache__/
 debug_audio.webm
+./.DS_Store
