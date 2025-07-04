@@ -11,6 +11,12 @@ import { useState, useRef } from "react";
 import MobileMenu from "./MobileMenu";
 import useLockBodyScroll from "@/hooks/useLockBodyScroll";
 
+/**
+ * @file Header.tsx
+ * @summary Defines the Header component for the Dentics landing page.
+ * This component includes top-bar information (contact, location, hours) and the main navigation bar.
+ * It features a responsive design with a mobile menu that can be toggled.
+ */
 const Header = () => {
 	const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);
 	const menuRef = useRef<HTMLElement>(null);

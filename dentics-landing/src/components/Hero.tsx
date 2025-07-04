@@ -1,3 +1,9 @@
+/**
+ * @file Hero.tsx
+ * @summary Defines the Hero component, which is the main introductory section of the landing page.
+ * It features a prominent heading, a descriptive paragraph, and calls to action for booking appointments or learning more.
+ * The component also includes a hero image for visual appeal.
+ */
 import FlexSection from "./FlexSection";
 import Image from "next/image";
 import heroImage from "../assets/hero.svg";
